@@ -11,10 +11,15 @@ public class Main {
         String code = splittedInput[0].toLowerCase();
         String fromDate = splittedInput[1];
         String toDate = splittedInput[2];
-
-        double averageRate = CurrencyInfo.averageRate(CurrencyInfo.getExchangeRate(code, fromDate, toDate));
-        double deviation = CurrencyInfo.standardDeviation(CurrencyInfo.getExchangeRate(code, fromDate, toDate), averageRate);
-        System.out.println(averageRate);
-        System.out.println(deviation);
+        if(ExceptionsHandler.checkDateRange(fromDate, toDate)) {
+            double averageRate = CurrencyInfo.averageRate(CurrencyInfo.getExchangeRate(code, fromDate, toDate));
+            double deviation = CurrencyInfo.standardDeviation(CurrencyInfo.getExchangeRate(code, fromDate, toDate), averageRate);
+            if(ExceptionsHandler.ret) {
+                System.out.println(averageRate);
+                System.out.println(deviation);
+            }
+            else
+                ExceptionsHandler.retException();
+        }
     }
 }

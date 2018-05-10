@@ -46,7 +46,14 @@ public class CurrencyInfo {
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            if(e.getMessage().equals("Server returned HTTP response code: 400 for URL: "+uri)) {
+                ExceptionsHandler.ret = false;
+                ExceptionsHandler.exceptionCode = 1;
+            }
+            if(e.getMessage().equals(uri)) {
+                ExceptionsHandler.ret = false;
+                ExceptionsHandler.exceptionCode = 2;
+            }
         }
         return currRateList;
     }
